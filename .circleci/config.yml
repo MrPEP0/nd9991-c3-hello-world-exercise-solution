@@ -79,7 +79,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i inventory.txt main4.yml #change inventory file to have the public ip of your server.
+            ansible-playbook -i inventory.txt main4.yml #change inventory file and main4.yml file to have the public ip of your server.
 
 
 
