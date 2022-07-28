@@ -63,6 +63,25 @@ jobs:
       # - run: return 1
       - destroy_environment
 
+  # Exercise: Config and Deployment
+  configure_infrastructure: 
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["89:32:ab:c3:ab:a8:6e:c3:3a:b7:90:93:23:ce:c1:ad"] # You can get this ID in the section where you registered the SSH private Key from .pem file and import it into circleci project setting  
+      - run:
+          name: Install dependencies
+          command: |
+            # install the dependencies needed for your playbook
+            apk add --update ansible 
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i inventory.txt main4.yml #change inventory file to have the public ip of your server.
+
+
 
 workflows:
   # Name the workflow "welcome"
@@ -72,3 +91,4 @@ workflows:
       # - welcome/run
       - print_greetings
       - create_infrastructure
+      - configure_infrastructure
